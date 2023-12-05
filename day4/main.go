@@ -27,7 +27,9 @@ func main() {
 		newligne := delete_doublespace(ligne)
 		new_res = append(new_res, newligne)
 	}
+
 	cards := [][2][]int{}
+
 	for _, ligne := range new_res {
 		list_card := [2][]int{}
 		entire_card := strings.Split((strings.Split(ligne, ": ")[1]), " | ")
@@ -39,6 +41,8 @@ func main() {
 	}
 
 	fmt.Println(total_points(cards))
+	fmt.Println(total_scratchcards(cards))
+
 }
 
 func delete_doublespace(card string) string {
@@ -92,4 +96,38 @@ func total_points(cards [][2][]int) int {
 		total += point_per_card(card)
 	}
 	return total
+}
+
+func match_per_card(card [2][]int) int {
+	matches := 0
+	for _, val := range card[1] {
+		if is_int_in(val, card[0]) {
+			matches += 1
+		}
+	}
+	return matches
+}
+
+func sum(liste [198]int) int {
+	somme := 0
+	for _, val := range liste {
+		somme += val
+	}
+	return somme
+}
+
+func total_scratchcards(cards [][2][]int) int {
+	compteur := [198]int{}
+	for i := 0; i < len(compteur); i++ {
+		compteur[i] = 1
+	}
+	ind := 0
+	for _, card := range cards {
+		matches := match_per_card(card)
+		for i := 1; i < matches+1; i++ {
+			compteur[ind+i] += compteur[ind]
+		}
+		ind++
+	}
+	return (sum(compteur))
 }
