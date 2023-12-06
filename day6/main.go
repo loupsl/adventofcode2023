@@ -26,6 +26,18 @@ func main() {
 
 	fmt.Println(result(times, distances))
 
+	single_time := ""
+	for _, val := range strings.Split(strings.Split(res[0], ":        ")[1], "     ") {
+		single_time += val
+	}
+	s_time, err := strconv.Atoi(single_time)
+	single_distance := ""
+	for _, val := range strings.Split(strings.Split(res[1], ":   ")[1], "   ") {
+		single_distance += val
+	}
+	s_distance, err := strconv.Atoi(single_distance)
+
+	fmt.Println(count_waystowin(s_time, s_distance))
 }
 
 func convert_int(tab []string) []int {
