@@ -25,6 +25,8 @@ func main() {
 	}
 
 	fmt.Println(sum_total(tab))
+	fmt.Println(sum_totalpart2(tab))
+
 }
 
 func convert_line_int(line string) []int {
@@ -72,7 +74,7 @@ func make_tab_ligne(ligne []int) [][]int {
 	return tabligne
 }
 
-func sum_ligne(ligne []int) int {
+func predict_value(ligne []int) int {
 	tabline := make_tab_ligne(ligne)
 	sum := 0
 	for _, line := range tabline {
@@ -84,7 +86,27 @@ func sum_ligne(ligne []int) int {
 func sum_total(tab [][]int) int {
 	sumtot := 0
 	for _, line := range tab {
-		sumtot += sum_ligne(line)
+		sumtot += predict_value(line)
 	}
 	return sumtot
+}
+
+func first_value(ligne []int) int {
+	firstvalue := 0
+	tabline := make_tab_ligne(ligne)
+	ind := 1
+	for i := 0; i < len(tabline); i++ {
+		firstvalue += ind * tabline[i][0]
+		ind = -1 * ind
+	}
+	return firstvalue
+}
+
+func sum_totalpart2(tab [][]int) int {
+	sum := 0
+	for _, line := range tab {
+		firstvalue := first_value(line)
+		sum += firstvalue
+	}
+	return sum
 }
