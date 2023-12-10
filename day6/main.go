@@ -53,7 +53,6 @@ func convert_int(tab []string) []int {
 	return tabint
 }
 
-// distance if we held the button for "time_heldbutton" in a race that lasts "time"
 func result_distance(time int, time_heldbutton int) int {
 	return time_heldbutton * (time - time_heldbutton)
 }
