@@ -20,7 +20,8 @@ func main() {
 	}
 
 	pos_galaxies, count_ligne, count_colonne := make_pos_galaxies(res)
-	fmt.Println(sum_shortestpath(expand_galaxies(pos_galaxies, count_ligne, count_colonne, res)))
+	fmt.Println(sum_shortestpath(expand_galaxies1(pos_galaxies, count_ligne, count_colonne, res)))
+	fmt.Println(sum_shortestpath(expand_galaxies2(pos_galaxies, count_ligne, count_colonne, res)))
 
 }
 
@@ -47,7 +48,7 @@ func make_pos_galaxies(file []string) ([][2]int, []int, []int) {
 	return positions_galaxies, count_ligne, count_colonne
 }
 
-func expand_galaxies(pos_galaxies [][2]int, count_ligne []int, count_colonne []int, file []string) [][2]int {
+func expand_galaxies1(pos_galaxies [][2]int, count_ligne []int, count_colonne []int, file []string) [][2]int {
 	tab := [][2]int{}
 	for i := 0; i < len(pos_galaxies); i++ {
 		tab = append(tab, pos_galaxies[i])
@@ -97,4 +98,35 @@ func sum_shortestpath(posgalaxies [][2]int) int {
 		}
 	}
 	return sum
+}
+
+// PART 2
+func expand_galaxies2(pos_galaxies [][2]int, count_ligne []int, count_colonne []int, file []string) [][2]int {
+	tab := [][2]int{}
+	for i := 0; i < len(pos_galaxies); i++ {
+		tab = append(tab, pos_galaxies[i])
+	}
+	for ligne := 0; ligne < len(file); ligne++ {
+		if count_ligne[ligne] == 0 {
+			ind := 0
+			for _, tabgalaxie := range pos_galaxies {
+				if tabgalaxie[0] > ligne {
+					tab[ind][0] += 999999
+				}
+				ind++
+			}
+		}
+	}
+	for colonne := 0; colonne < len(file[0]); colonne++ {
+		if count_colonne[colonne] == 0 {
+			ind := 0
+			for _, tabgalaxie := range pos_galaxies {
+				if tabgalaxie[1] > colonne {
+					tab[ind][1] += 999999
+				}
+				ind++
+			}
+		}
+	}
+	return tab
 }
