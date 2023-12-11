@@ -84,6 +84,7 @@ func ascii_to_strint(ascii byte) string {
 	if ascii == '9' {
 		return "9"
 	}
+	fmt.Println("Problème de code ASCII")
 	return "pb de code ascii"
 }
 
@@ -106,7 +107,7 @@ func make_posint(file []string) [][3]int {
 					str_int += ascii_to_strint(ascii)
 				}
 			} else {
-				if bool { //on a fini de paser l'int
+				if bool { //on a fini de parser l'int
 					int_pos[0] = str_to_int(str_int)
 					positions_int = append(positions_int, int_pos)
 					int_pos = [3]int{0, 0, 0}
@@ -190,4 +191,14 @@ func total_sum(file []string) int {
 		}
 	}
 	return totalsum
+}
+
+func are_not_adjacent(posint [][3]int, posymbol [][2]int, res []string) [][3]int {
+	tab_not_adjacent := [][3]int{}
+	for _, tabint := range posint {
+		if !is_adjacent(tabint, posymbol, res) {
+			tab_not_adjacent = append(tab_not_adjacent, tabint)
+		}
+	}
+	return tab_not_adjacent
 }
