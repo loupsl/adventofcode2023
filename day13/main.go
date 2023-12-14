@@ -89,3 +89,26 @@ func sum_mirrors(groups [][]string) int {
 	}
 	return sum
 }
+
+//PART2
+
+func locate_smudge(group []string) [2]int  {
+	newgroup := []string{}
+	for _,line := range group {
+		newgroup = append(newgroup, line)
+	}
+	for j:=0;j<len(group);j++ {
+		for i:=0;i<len(line);i++{
+			if group[j][i] == '#' {
+				newgroup[j][i] = '.'
+				if ind_mirror_hor(group) != 0 {
+					if ind_mirror_hor(newgroup) != 
+				}
+			}
+			else 
+		}
+	}
+
+}
+
+func make_newtab(groupes [][]string) {}
