@@ -72,7 +72,7 @@ func nbr_rounds_norocks(line0 int, column0 int, platform [][]string) int {
 	return count
 }
 
-func move_0(line0 int, column0 int, platform [][]string) int {
+func movenorth_0(line0 int, column0 int, platform [][]string) int {
 	dist_rock := dist_first_rock_above(line0, column0, platform)
 	if dist_rock != -1 {
 		nbr_rounds_above := nbr_rounds_before_rock(line0, column0, dist_rock, platform)
@@ -88,7 +88,7 @@ func sum(platform [][]string) int {
 	for i := 0; i < len(platform); i++ {
 		for j := 0; j < len(platform[i]); j++ {
 			if platform[i][j] == "O" {
-				sum += len(platform) - move_0(i, j, platform)
+				sum += len(platform) - movenorth_0(i, j, platform)
 			}
 		}
 	}
