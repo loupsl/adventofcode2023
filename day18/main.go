@@ -16,17 +16,28 @@ func main() {
 	}
 	defer file.Close()
 
-	res := [][2]interface{}{}
+	res1 := [][2]interface{}{}
+	res2 := []string{}
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		line := strings.Split(scanner.Text(), " (")[0]
-		interf := [2]interface{}{string(line[0]), str_to_int(string(line[2:]))}
-		res = append(res, interf)
+		line1 := strings.Split(scanner.Text(), " (")[0]
+		line2 := string(strings.Split(scanner.Text(), "#")[1])[0:6]
+		interf := [2]interface{}{string(line1[0]), str_to_int(string(line1[2:]))}
+		res1 = append(res1, interf)
+		res2 = append(res2, line2)
 	}
 
-	path := final_tab(res)
-	dig_tab := fill_tab(path)
-	fmt.Println(count_lava(dig_tab))
+	fmt.Println("Partie 1 : ")
+	path1 := final_tab(res1)
+	dig_tab1 := fill_tab(path1)
+	fmt.Println(count_lava(dig_tab1))
+
+	fmt.Println("Partie 2: ")
+	input2 := make_input2(res2)
+	path2 := final_tab(input2)
+	dig_tab2 := fill_tab(path2)
+	fmt.Println(count_lava(dig_tab2))
+
 }
 
 func str_to_int(intstring string) int {
@@ -369,4 +380,40 @@ func count_lava(tab []string) int {
 		}
 	}
 	return lava
+}
+
+//PART2
+
+func read_code(code string) [2]interface{} {
+	size := convert_hex(code[0:5])
+	dir_int := string(code[5])
+	if dir_int == "0" {
+		return [2]interface{}{"R", int(size)}
+	}
+	if dir_int == "1" {
+		return [2]interface{}{"D", int(size)}
+	}
+	if dir_int == "2" {
+		return [2]interface{}{"L", int(size)}
+	}
+	if dir_int == "3" {
+		return [2]interface{}{"U", int(size)}
+	}
+	return [2]interface{}{}
+}
+
+func convert_hex(chain string) int64 {
+	result, err := strconv.ParseInt(chain, 16, 64)
+	if err != nil {
+		return 0
+	}
+	return result
+}
+
+func make_input2(tab []string) [][2]interface{} {
+	input := [][2]interface{}{}
+	for _, code := range tab {
+		input = append(input, read_code(code))
+	}
+	return input
 }
