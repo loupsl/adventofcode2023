@@ -33,9 +33,7 @@ func main() {
 	}
 	workflows := make_workflows(res1)
 	ratings := make_ratings(res2)
-	//fmt.Println(ratings)
-	//fmt.Println(workflows["bfb"])
-	fmt.Println(count_acceptance(ratings, workflows))
+	fmt.Println("Partie 1: ", count_acceptance(ratings, workflows))
 }
 
 func str_to_int(intstring string) int {
